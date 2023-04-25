@@ -7,6 +7,7 @@ const port = 3000;
 const redLedOut = new Gpio(18, "out");
 const greenLedOut = new Gpio(25, "out");
 let isComplete = false;
+illuminate();
 
 app.get("/check", (req, res) => {
   res.send("you have checked the item");
@@ -29,7 +30,9 @@ app.listen(port, () => {
 let illuminate = () => {
   if (isComplete) {
     greenLedOut.writeSync(1);
+    redLedOut.writeSync(0);
   } else {
     redLedOut.writeSync(1);
+    greenLedOut.writeSync(0);
   }
 };
