@@ -12,20 +12,24 @@ app.get("/check", (req, res) => {
   res.send("you have checked the item");
   console.log("item was checked");
   isComplete = true;
+  illuminate();
 });
 
 app.get("/uncheck", (req, res) => {
   res.send("you have unchecked the item");
   console.log("item was unchecked");
   isComplete = false;
+  illuminate();
 });
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
-if (isComplete) {
-  greenLedOut.writeSync(1);
-} else {
-  redLedOut.writeSync(1);
-}
+let illuminate = () => {
+  if (isComplete) {
+    greenLedOut.writeSync(1);
+  } else {
+    redLedOut.writeSync(1);
+  }
+};
