@@ -7,6 +7,16 @@ const port = 3000;
 const redLedOut = new Gpio(18, "out");
 const greenLedOut = new Gpio(25, "out");
 let isComplete = false;
+
+let illuminate = () => {
+  if (isComplete) {
+    greenLedOut.writeSync(1);
+    redLedOut.writeSync(0);
+  } else {
+    redLedOut.writeSync(1);
+    greenLedOut.writeSync(0);
+  }
+};
 illuminate();
 
 app.get("/check", (req, res) => {
@@ -26,13 +36,3 @@ app.get("/uncheck", (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
-
-let illuminate = () => {
-  if (isComplete) {
-    greenLedOut.writeSync(1);
-    redLedOut.writeSync(0);
-  } else {
-    redLedOut.writeSync(1);
-    greenLedOut.writeSync(0);
-  }
-};
